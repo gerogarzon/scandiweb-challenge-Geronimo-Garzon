@@ -1,0 +1,127 @@
+.cartdetail_container {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  color: #1d1f22;
+  padding-left: 100px;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: #1d1f22;
+  margin-bottom: 55px;
+}
+.empty_cart{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 100px;
+}
+.products_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 336px;
+  margin: 0px 100px;
+}
+.total_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.products_items {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 336px;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 24px 0px;
+}
+.products_items_col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.colone {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-grow: 1;
+  height: 336px;
+  padding: 24px 0px;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 160%;
+  display: flex;
+  align-items: flex-start;
+  color: #1d1f22;
+}
+.coltwo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  height: 336px;
+  padding: 24px 24px;
+}
+.add_button {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  background: #ffffff;
+  align-self: flex-start;
+}
+.quantity {
+  flex-grow: 1;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 160%;
+  color: #1d1f22;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subtract_button {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  background: #ffffff;
+}
+.colthird {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+
+  height: 336px;
+}
+.img {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 288px;
+  object-fit: contain;
+}
