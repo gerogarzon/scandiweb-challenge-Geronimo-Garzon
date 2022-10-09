@@ -10,22 +10,31 @@ export default class Cart extends Component {
     super(props);
     this.state = {
       cartOpen: false,
+      total:0.00,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.setTotal = this.setTotal.bind(this);
   }
 
+  async setTotal(e){
+    console.log(e)
+    console.log("hola")
+  // await  this.setState({total: e});
+  // console.log(this.state.total)
+  }
   handleClick() {
     let actualState = this.state.cartOpen;
     this.setState({ cartOpen: !actualState });
   }
 
   render() {
+    
     return (
       <CurrencyContext.Consumer>
         {(context) => (
           <>
             <CartContext.Consumer>
-              {({ productsInCart, changeBackgorundColor, removeFromCart }) => (
+              {({ productsInCart, changeBackgorundColor, addQuantity, removeFromCart }) => (
                 <>
                   <div className="cart_container">
                     <div
@@ -73,21 +82,24 @@ export default class Cart extends Component {
                         </div>
                         {productsInCart.map((item, index) => {
                           return (
+                            
                             <div key={index} className="cart_items_products">
                               <div className="cart_items_products_col col1">
                                 <div>{item.brand}</div>
                                 <div>{item.name}</div>
                                 <div>
-                                  {item.prices.map((item, index) => {
+                                  {item.prices.map((e, index) => {
                                     return (
                                       <div key={index}>
-                                        {item.currency.label ===
+                                        {e.currency.label ===
                                           context.currency && (
                                           <b
+                                            onChange={()=>this.setTotal(Number(item.quantity*e.amount).toFixed(2))}
                                             key="index"
                                             className="cart_content_price"
+                                            
                                           >
-                                            {item.currency.label} {item.amount}
+                                            {e.currency.label} {Number(item.quantity*e.amount).toFixed(2)}
                                           </b>
                                         )}
                                       </div>
@@ -117,9 +129,12 @@ export default class Cart extends Component {
                                 </div>
                               </div>
                               <div className="cart_items_products_col col2">
-                                <button className="button_add">+</button>
+                                <button 
+                                data-id={item.name}
+                                onClick={addQuantity}                               
+                                className="button_add">+</button>
                                 <div className="product_quantity">
-                                  {productsInCart.length}
+                                  {item.quantity}
                                 </div>
                                 <button
                                   data-id={item.name}
@@ -137,14 +152,20 @@ export default class Cart extends Component {
                                 />
                               </div>
                             </div>
+
+                          
+                                  
                           );
                         })}
-                        <div className="total">
+                        
+
+                        <div  className="total">
                           <b className="total_title">Total</b>
                           <b className="total_amount">
-                            {productsInCart.length}
+                              {productsInCart.quantity}
                           </b>
                         </div>
+                           
                         <div className="checkout_buttons">
                           <Link
                             to="/cartdetail"

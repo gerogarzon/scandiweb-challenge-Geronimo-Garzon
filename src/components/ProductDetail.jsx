@@ -18,9 +18,9 @@ export default class ProductDetail extends Component {
       this.setState({ mainImage: data });
     };
     this.attributes = async (e)=>{ 
-      let data = e;  
-      await this.setState({ attributes: [...this.state.attributes, data] }); 
-    }
+      let data = e;       
+      await this.setState({ attributes: [...this.state.attributes, data] });     
+    }   
   }
 
   async componentDidMount() {
@@ -115,9 +115,10 @@ export default class ProductDetail extends Component {
                                     <>
                                       {itm.items.map((item) => {
                                         return (                                         
-                                          <button                                            
+                                          <button
+                                                                                     
                                             key={item.id}
-                                            onClick={()=>this.attributes({id: itm.id, value:item.value})}  
+                                            onClick={()=>this.attributes({id: itm.id, value:item.value}) }  
                                             className="attributes_buttons typeColor"
                                             style={{
                                               backgroundColor: item.value,
@@ -131,9 +132,10 @@ export default class ProductDetail extends Component {
                                       {itm.items.map((item) => {
                                         return (                                         
                                           <button
-                                            type="submit"
-                                            key={item.id}
-                                            onClick={()=>this.attributes({id: itm.id, value:item.value})}                                           
+                                          type="radio"
+                                          id="focus"    
+                                            key={item.id}                                   
+                                            onClick={()=>this.attributes({id: itm.id, value:item.value}) }                                          
                                             placeholder={item.value}
                                             className="attributes_buttons"
                                             style={{
@@ -169,7 +171,7 @@ export default class ProductDetail extends Component {
                           </div>
                           <button
                             data-cart={item}
-                            onClick={() => addToCart({product:item, attributes: this.state.attributes})}
+                            onClick={() => addToCart({product:item, attributes: this.state.attributes, quantity: 1})}
                             className="addtocart_button"
                           >
                             ADD TO CART

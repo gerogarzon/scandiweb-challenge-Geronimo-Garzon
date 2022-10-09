@@ -24,9 +24,7 @@
   left: 15px;
   z-index: -1;
 }
-.cart_items_main_container {
-  height: 100%;
-}
+
 .cart_items_content {
   position: absolute;
   right: 0px;
@@ -75,8 +73,8 @@
   flex-direction: row;
   margin-bottom: 40px;
   margin-top: 32px;
-
   max-width: 293px;
+
 }
 .cart_items_products_col {
   display: flex;
@@ -84,7 +82,7 @@
 }
 .col1 {
   width: 136px;
-  height: 52px;
+  height: 190px;
   font-family: "Raleway";
   font-style: normal;
   font-weight: 300;
@@ -94,6 +92,10 @@
   align-items: flex-start;
   color: #1d1f22;
   padding-right: 4px;
+  overflow-y: scroll;
+}
+.col1::-webkit-scrollbar {
+  background: #ffffff;
 }
 .cart_content_price {
   font-family: "Raleway";

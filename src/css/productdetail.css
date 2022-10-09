@@ -90,15 +90,23 @@
   margin-top: 8px;
   background-color: #ffffff;
 }
-.attributes_buttons:focus {
+.attributes_buttons:hover{
+  cursor: pointer;
+  border: 2px solid #5ece7c9c;
+}
+.attributes_buttons:focus{
   color: #ffffff;
   background: #1d1f22;
   border: 1px solid #1d1f22;
 }
-.typeColor:focus{
+.typeColor:focus {
     background-clip: content-box;
     border: 1px solid #5ECE7B;
     padding: 2px;
+}
+.typeColor:hover{
+  cursor: pointer;
+  border: 2px solid #5ece7c9c;
 }
 .price {
   font-family: "Roboto Condensed";

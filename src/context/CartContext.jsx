@@ -13,31 +13,69 @@ export class CartProvider extends Component {
       backgroundColor: 1,
     };
     this.addToCart = this.addToCart.bind(this);
+    this.addQuantity = this.addQuantity.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.changeBackgorundColor = this.changeBackgorundColor.bind(this);
   }
-  // this.state.productsInCart.filter(e=>{return e.name !== name || []})
-  async addToCart({product, attributes}) {
+  
+  async addToCart({product, attributes, quantity}) {
     const { name, brand, prices, gallery } = product;
-    let data = { name, brand, prices, gallery, attributes };
-    let alreadyInCart = this.state.productsInCart.map((e) =>{ 
-      return e === name 
-    })
-    console.log(alreadyInCart);
-    if (alreadyInCart.length === 0){
-      await this.setState({ productsInCart: [...this.state.productsInCart, data] });
-      console.log("yes")
+   
+    let data = { name, brand, prices, gallery, attributes, quantity };
+    let currentProduct = this.state.productsInCart.find((e)=> { return e.name === name });
+
+    console.log("cart",this.state.productsInCart)
+
+    
+    // let currentAttributeValue = attributes[attributes.length-1].value;
+    // console.log("current",currentAttributeValue)
+  
+    // let previusAttributeValue = this.state.productsInCart.map(item=> {return item.attributes})
+    // console.log("previus", previusAttributeValue)
+    // let value = previusAttributeValue[Array.length - 1];
+    // console.log("value", value)
+    
+    
+   
+
+    if( currentProduct === undefined){
+      await this.setState({ productsInCart: [...this.state.productsInCart, data] }); 
     } else {
-      console.log("oh")
-      // await this.setState({ productsInCart: [...this.state.productsInCart] });
+      console.log("already in cart")
     }
   }
 
-  
-  removeFromCart(e) {
+  async addQuantity (e){
     const name = e.target.dataset.id;
-    let deletedProduct = this.state.productsInCart.filter((e)=> { return e.name !== name });
-    this.setState({ productsInCart: deletedProduct });
+    let currentProduct = this.state.productsInCart.find((e)=> { return e.name === name });
+    let currentQuantity = currentProduct.quantity;
+    currentProduct.quantity = currentQuantity + 1;
+    
+    let previusProducts = this.state.productsInCart.filter((e)=>{return e.name !== name});
+    
+    await this.setState({productsInCart: [ currentProduct, ...previusProducts]})
+     console.log(this.state.productsInCart)
+  }
+
+ 
+  
+ async removeFromCart(e) { 
+    const name = e.target.dataset.id;
+    let currentProduct = this.state.productsInCart.find((e)=> { return e.name === name });
+    let currentQuantity = currentProduct.quantity;
+    currentProduct.quantity = currentQuantity + 1;
+    let previusProducts = this.state.productsInCart.filter((e)=>{return e.name !== name});
+
+    if(currentQuantity > 1){
+      currentProduct.quantity = currentQuantity - 1;
+      await this.setState({productsInCart: [currentProduct, ...previusProducts]})
+       
+    } else {
+      let deletedProduct = this.state.productsInCart.filter((e)=> { return e.name !== name });
+      
+     await this.setState({ productsInCart: deletedProduct });
+     
+    }
   }
   
 
@@ -56,6 +94,7 @@ export class CartProvider extends Component {
     let productsInCart = this.state.productsInCart;
     let backgroundColor = this.state.backgroundColor;
     let addToCart = this.addToCart;
+    let addQuantity = this.addQuantity;
     let removeFromCart = this.removeFromCart;
     let changeBackgorundColor = this.changeBackgorundColor;
 
@@ -65,6 +104,7 @@ export class CartProvider extends Component {
           productsInCart,
           backgroundColor,
           addToCart,
+          addQuantity,
           removeFromCart,
           changeBackgorundColor,
         }}

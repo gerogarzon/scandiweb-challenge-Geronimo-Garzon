@@ -1,6 +1,7 @@
 .cartdetail_container {
   display: flex;
   flex-direction: column;
+  padding:24px 0px;
 }
 .title {
   display: flex;
@@ -19,7 +20,7 @@
   color: #1d1f22;
   margin-bottom: 55px;
 }
-.empty_cart{
+.empty_cart {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -33,13 +34,10 @@
   align-items: center;
   min-height: 336px;
   margin: 0px 100px;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
-.total_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
+
 .products_items {
   display: flex;
   flex-direction: row;
@@ -47,9 +45,9 @@
   height: 336px;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
+
   padding: 24px 0px;
+  
 }
 .products_items_col {
   display: flex;
@@ -64,15 +62,77 @@
   justify-content: flex-start;
   flex-grow: 1;
   height: 336px;
-  padding: 24px 0px;
-  font-family: "Raleway";
+  padding: 24px 0px; 
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.colone::-webkit-scrollbar{
+background-color: #ffffff;
+}
+.product_brand{
+  font-family: 'Raleway';
   font-style: normal;
-  font-weight: 300;
+  font-weight: 600;
   font-size: 30px;
-  line-height: 160%;
+  line-height: 27px;
   display: flex;
-  align-items: flex-start;
+  align-items: center; 
+  color: #1D1F22;
+  margin-bottom: 16px;
+}
+.product_name{
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 27px; 
+  display: flex;
+  align-items: center;
+  color: #1D1F22;
+  margin-bottom: 16px;
+}
+.item_price{  
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 24px;
+display: flex;
+align-items: center;
+color: #1D1F22;
+margin-bottom: 16px;
+}
+.attribute_id {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
   color: #1d1f22;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.attribute_typecolor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 63px;
+  height: 45px;
+  margin-bottom: 16px;
+}
+.attribute_typeValue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 63px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  background: #1d1f22;
+  color: #ffffff;
+  margin-bottom: 16px;
 }
 .coltwo {
   display: flex;
@@ -124,4 +184,10 @@
   width: 200px;
   height: 288px;
   object-fit: contain;
+}
+.total_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
