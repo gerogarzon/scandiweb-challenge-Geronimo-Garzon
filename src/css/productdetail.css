@@ -73,7 +73,35 @@
   line-height: 18px;
   color: #1d1f22;
   text-transform: uppercase;
+  margin-bottom: 15px;
 }
+/* label {
+  position: relative;
+  padding: 7px;
+  border: 1px solid #1d1f22;
+  margin-right:8px;
+
+}
+label:hover{
+  cursor: pointer;
+  border: 2px solid #5ece7c9c;
+}
+/* input[type="checkbox"] {
+  visibility: hidden;
+  min-height: 36px;
+  min-width: 56px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+/* input[type="checkbox"]:checked{
+  backgroundColor: #1D1F22 !important;
+}
+.span {
+  padding: 8px;
+} */ 
 .attributes_buttons {
   font-family: "Source Sans Pro";
   font-style: normal;
@@ -94,17 +122,17 @@
   cursor: pointer;
   border: 2px solid #5ece7c9c;
 }
-.attributes_buttons:focus{
+.attributes_buttons:focus {
   color: #ffffff;
   background: #1d1f22;
   border: 1px solid #1d1f22;
 }
 .typeColor:focus {
-    background-clip: content-box;
-    border: 1px solid #5ECE7B;
-    padding: 2px;
+  background-clip: content-box;
+  border: 1px solid #5ece7b;
+  padding: 2px;
 }
-.typeColor:hover{
+.typeColor:hover {
   cursor: pointer;
   border: 2px solid #5ece7c9c;
 }
@@ -126,9 +154,9 @@
   color: #1d1f22;
   margin-bottom: 20px;
   min-width: 86px;
-min-height: 46px;
-display: flex;
-align-items: center;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
 }
 .addtocart_button {
   font-family: "Raleway";

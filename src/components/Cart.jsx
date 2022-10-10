@@ -107,6 +107,30 @@ export default class Cart extends Component {
                                   })}
                                 </div>
                                 <div>
+
+                                {/* <div>{item.attributes.id}:</div>
+                                        {item.attributes.id === "Color" ? (
+                                          <div
+                                            style={{
+                                              backgroundColor: item.attributes.value,
+                                            }}
+                                            className="colorType"
+                                          ></div>
+                                        ) : (
+                                          <div className="attribute_value">
+                                            {item.attributes.value}
+                                          </div>
+                                        )}    */}
+
+                                {/* {item.attributes.length !== 0 && <div className="attribute_value">
+                                            {item.attributes[item.attributes.length - 1].value}
+                                          </div>} */}
+
+
+                                {/* <div className="attribute_value">
+                                            {item.attribute[0].value}
+                                          </div> */}
+
                                   {item.attributes.map((attribute, index) => {
                                     return (
                                       <div key={index}>
@@ -126,24 +150,78 @@ export default class Cart extends Component {
                                       </div>
                                     );
                                   })}
+
+
+
+                                  {/* <div key={index}>
+                                        <div>{item.attribute[Array.length-1]}:</div>
+                                        {item.attribute[Array.length-1].id === "Color" ? (
+                                          <div
+                                            style={{
+                                              backgroundColor: item.attribute[Array.length-1].value,
+                                            }}
+                                            className="colorType"
+                                          ></div>
+                                        ) : (
+                                          <div className="attribute_value">
+                                            {item.attribute[Array.length-1].value}
+                                          </div>
+                                        )}
+                                      </div> */}
+
+                                  
+
                                 </div>
                               </div>
-                              <div className="cart_items_products_col col2">
-                                <button 
-                                data-id={item.name}
-                                onClick={addQuantity}                               
-                                className="button_add">+</button>
-                                <div className="product_quantity">
-                                  {item.quantity}
-                                </div>
-                                <button
-                                  data-id={item.name}
-                                  onClick={removeFromCart}
-                                  className="button_subtract"
-                                >
-                                  -
-                                </button>
+
+                              {/* {item.attributes.map((a,idx)=>{return(
+                              <div key={idx} className="cart_items_products_col col2">                                   
+                                  <button
+                                    data-attribute={a.value} 
+                                    data-id={item.name}
+                                    onClick={addQuantity}                               
+                                    className="button_add"
+                                    >
+                                      +
+                                    </button>                              
+                                  <div className="product_quantity">
+                                    {item.quantity}
+                                  </div>
+                                  <button
+                                    data-id={item.name}
+                                    onClick={removeFromCart}
+                                    className="button_subtract"
+                                  >
+                                    -
+                                  </button>
                               </div>
+                              )})} */}
+
+                                <div className="cart_items_products_col col2">                                   
+                                  <button
+                                    // data-attribute={a.value} 
+                                    data-id={item.name}
+                                    onClick={addQuantity}                               
+                                    className="button_add"
+                                    >
+                                      +
+                                    </button>                              
+                                  <div className="product_quantity">
+                                    {item.quantity}
+                                  </div>
+                                  <button
+                                    data-id={item.name}
+                                    onClick={removeFromCart}
+                                    className="button_subtract"
+                                  >
+                                    -
+                                  </button>
+                                </div>
+
+
+
+
+
                               <div className="cart_items_products_col col3">
                                 <img
                                   className="image"

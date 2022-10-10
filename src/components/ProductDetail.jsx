@@ -19,7 +19,29 @@ export default class ProductDetail extends Component {
     };
     this.attributes = async (e)=>{ 
       let data = e;       
-      await this.setState({ attributes: [...this.state.attributes, data] });     
+      let value = this.state.attributes;  
+      console.log(data)
+      if(value.length===0){
+        console.log("in mainif")
+      
+      let alreadyInCart = value.some(element => {return element.id=== data.id })  
+      console.log("already",alreadyInCart)  
+           if (!alreadyInCart){
+            await this.setState({ attributes: [...this.state.attributes, data]});         
+          } 
+            
+          
+          // console.log("satate", this.state.attributes)
+        } else{
+          console.log("in elsemain")
+          let alreadyInCart = value.some(element => {return (element.id=== data.id && element.value === data.value)})  
+      console.log("already2",alreadyInCart)  
+         if (!alreadyInCart){
+            await this.setState({ attributes: [...this.state.attributes, data]});         
+          }
+
+
+        }
     }   
   }
 
@@ -130,20 +152,12 @@ export default class ProductDetail extends Component {
                                   ) : (
                                     <>
                                       {itm.items.map((item) => {
-                                        return (                                         
-                                          <button
-                                          type="radio"
-                                          id="focus"    
-                                            key={item.id}                                   
-                                            onClick={()=>this.attributes({id: itm.id, value:item.value}) }                                          
-                                            placeholder={item.value}
-                                            className="attributes_buttons"
-                                            style={{
-                                              backgroundColor: item.value,
-                                            }}
-                                          >
-                                            {item.value}
-                                          </button>                                        
+                                        return ( 
+                                          <button                                                                                  
+                                          key={item.id}
+                                          onClick={()=>this.attributes({id: itm.id, value:item.value}) }  
+                                          className="attributes_buttons"                                    
+                                        >{item.value}</button>                             
                                         );
                                       })}
                                     </>
@@ -191,3 +205,4 @@ export default class ProductDetail extends Component {
     );
   }
 }
+ProductDetail.contextType = CartContext;
