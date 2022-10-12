@@ -3,16 +3,11 @@ import {Link} from "react-router-dom";
 import logo from "../resources/a-logo.png";
 import CurrencyContext from "../context/CurrencyContext";
 import Cart from "./Cart"
-
-
 import "../css/header.css";
 
-  
 export default class Header extends Component {
  
-  
   render() {  
-
     return (
       <CurrencyContext.Consumer>
         {context =>(

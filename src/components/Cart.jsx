@@ -10,32 +10,16 @@ export default class Cart extends Component {
     super(props);
     this.state = {
       cartOpen: false,
-      total: 0.0,
     };
     this.handleClick = this.handleClick.bind(this);
-    this.setTotal = this.setTotal.bind(this);
   }
 
-  async setTotal(e) {
-    console.log(e.amount);
-    console.log("hola");
-    // await  this.setState({total: e});
-    // console.log(this.state.total)
-  }
   handleClick() {
     let actualState = this.state.cartOpen;
     this.setState({ cartOpen: !actualState });
   }
 
-  // componentDidUpdate() {
-  //   let total = document.getElementsByClassName('cart_content_price')
-  //   console.log('total', total.forEach(element => {return element.innerText
-      
-  //   }));
-  // }
-
   render() {
-   
     return (
       <CurrencyContext.Consumer>
         {(context) => (
@@ -118,7 +102,6 @@ export default class Cart extends Component {
                                     );
                                   })}
                                 </div>
-
                                 <div>
                                   {item.attributes.map((attribute, index) => {
                                     return (
@@ -141,10 +124,9 @@ export default class Cart extends Component {
                                   })}
                                 </div>
                               </div>
-
                               <div className="cart_items_products_col col2">
                                 <button
-                                  onClick={()=>addQuantity(item.id)}
+                                  onClick={() => addQuantity(item.id)}
                                   className="button_add"
                                 >
                                   +
@@ -152,14 +134,13 @@ export default class Cart extends Component {
                                 <div className="product_quantity">
                                   {item.quantity}
                                 </div>
-                                <button                                  
-                                  onClick={()=>removeFromCart(item.id)}
+                                <button
+                                  onClick={() => removeFromCart(item.id)}
                                   className="button_subtract"
                                 >
                                   -
                                 </button>
                               </div>
-
                               <div className="cart_items_products_col col3">
                                 <img
                                   className="image"
@@ -170,22 +151,30 @@ export default class Cart extends Component {
                             </div>
                           );
                         })}
-
                         <div className="total">
                           <b className="total_title">Total</b>
                           <b className="total_amount">
-                           
-                          {context.currency}{" "}{Number(productsInCart.reduce((acc, product)=>{
-                              if(product.prices.map(e=>{return e.currency.label ===context.currency})) {
-                                 let price = product.prices.find(evt=>{return evt.currency.label ===context.currency});
-                                return acc + price.amount * product.quantity;
-                              }
-                              }, 0)).toFixed(2)}
-            
-                            
-                          </b>                     
+                            {context.currency}{" "}
+                            {Number(
+                              productsInCart.reduce((acc, product) => {
+                                if (
+                                  product.prices.map((e) => {
+                                    return (
+                                      e.currency.label === context.currency
+                                    );
+                                  })
+                                ) {
+                                  let price = product.prices.find((evt) => {
+                                    return (
+                                      evt.currency.label === context.currency
+                                    );
+                                  });
+                                  return acc + price.amount * product.quantity;
+                                }
+                              }, 0)
+                            ).toFixed(2)}
+                          </b>
                         </div>
-
                         <div className="checkout_buttons">
                           <Link
                             to="/cartdetail"

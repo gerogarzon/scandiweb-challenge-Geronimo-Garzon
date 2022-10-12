@@ -22,7 +22,6 @@ export default class ProductDetail extends Component {
       let alreadyInCart = state.some((element) => {
         return element.id === data.id;
       });
-
       //  if state is empty save the data
       if (state.length === 0) {
         await this.setState({ attributes: [data] });

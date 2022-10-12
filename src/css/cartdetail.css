@@ -25,7 +25,7 @@
   justify-content: flex-start;
   align-items: center;
   padding-left: 100px;
-  font-size:30px;
+  font-size: 30px;
 }
 .products_container {
   display: flex;
@@ -173,19 +173,19 @@
   height: 336px;
   position: relative;
 }
-.arrow_btn_container{
+.arrow_btn_container {
   position: absolute;
   bottom: 16px;
   right: 16px;
   display: flex;
   gap: 8px;
 }
-.arrow_btn{
+.arrow_btn {
   width: 24px;
   height: 24px;
   border: none;
 }
-.arrow{
+.arrow {
   width: 24px;
   height: 24px;
 }
@@ -215,16 +215,16 @@
   line-height: 28px;
   color: #1d1f22;
 }
-.amount_total{
-padding-left: 10px;
+.amount_total {
+  padding-left: 10px;
 }
-.btn_order{
+.btn_order {
   width: 279px;
-  height:43px;
-  background: #5ECE7B;
-  color: #FFFFFF;
+  height: 43px;
+  background: #5ece7b;
+  color: #ffffff;
   border: none;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-style: normal;
   font-weight: 600;
   font-size: 14px;

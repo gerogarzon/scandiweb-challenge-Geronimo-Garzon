@@ -35,18 +35,18 @@
 .grid_items:hover {
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
-.card_image{
+.card_image {
   border-radius: 5px 5px 0 0;
   object-fit: cover;
   max-height: 338px;
   padding: 16px;
 }
-.card_image_outstock{
-    border-radius: 5px 5px 0 0;
-    object-fit: cover;
-    max-height: 338px;
-    padding: 16px;
-    opacity: 0.5;
+.card_image_outstock {
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+  max-height: 338px;
+  padding: 16px;
+  opacity: 0.5;
 }
 .card_content {
   height: calc(413px - 338px);
@@ -73,39 +73,39 @@
   text-align: right;
   color: #1d1f22;
 }
-.OutOfStock{
-    opacity: .5;
+.OutOfStock {
+  opacity: 0.5;
 }
 .textoverlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 160%;
-    display: flex;
-    align-items: center;
-    color: #8D8F9A;
-  }
-.card_image_cart_container{
-    position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 160%;
+  display: flex;
+  align-items: center;
+  color: #8d8f9a;
 }
-.card_cart{
-display:none;
-border:none;
-background-color: #ffffff;
-position: absolute;
-width: 52px;
-height: 52px;
-right: 15px;
-bottom: -26px;
+.card_image_cart_container {
+  position: relative;
 }
-.grid_items:hover .card_cart{
-    display: flex;
+.card_cart {
+  display: none;
+  border: none;
+  background-color: #ffffff;
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  right: 15px;
+  bottom: -26px;
 }
-.link{
+.grid_items:hover .card_cart {
+  display: flex;
+}
+.link {
   text-decoration: none;
 }

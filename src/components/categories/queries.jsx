@@ -1,0 +1,57 @@
+export const query_all = ` {
+    category(input:{title:"all"}){
+      name
+      products{
+        id
+        name
+        inStock
+        gallery
+        prices{
+          currency{
+            label
+            symbol
+          }
+          amount
+        }
+      }
+    }
+  }
+    `;
+export const query_clothes = ` {
+  category(input:{title:"clothes"}){
+    name
+    products{
+      id
+      name
+      inStock
+      gallery
+      prices{
+        currency{
+          label
+          symbol
+        }
+        amount
+      }
+    }
+  }
+}
+  `;
+export const query_tech = ` {
+  category(input:{title:"tech"}){
+    name
+    products{
+      id
+      name
+      inStock
+      gallery
+      prices{
+        currency{
+          label
+          symbol
+        }
+        amount
+      }
+    }
+  }
+}
+  `;

@@ -22,7 +22,7 @@ export default class CartDetail extends Component {
     let productId= id; 
     // find that product
     let context = this.context.productsInCart.find((e)=> e.id === productId)
-    // give me his gallery
+    // give me its gallery
     let gallery = context.gallery;
     // initilities the counter
     let i = this.state.count;
@@ -128,11 +128,9 @@ export default class CartDetail extends Component {
                                 >
                                   +
                                 </button>
-
                                 <div key={index} className="quantity">
                                   {item.quantity}
                                 </div>
-
                                 <button
                                   className="subtract_button"
                                   onClick={() => removeFromCart(item.id)}

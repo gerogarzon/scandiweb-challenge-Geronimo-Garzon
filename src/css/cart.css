@@ -24,7 +24,6 @@
   left: 15px;
   z-index: -1;
 }
-
 .cart_items_content {
   position: absolute;
   right: 0px;
@@ -43,7 +42,6 @@
 .cart_items_content::-webkit-scrollbar {
   background: #ffffff;
 }
-
 .cart_items_title_container {
   display: flex;
   flex-direction: row;
@@ -74,7 +72,6 @@
   margin-bottom: 40px;
   margin-top: 32px;
   max-width: 293px;
-
 }
 .cart_items_products_col {
   display: flex;
@@ -106,7 +103,7 @@
   text-align: right;
   color: #1d1f22;
 }
-.colorType{
+.colorType {
   display: flex;
   justify-content: center;
   align-items: center;

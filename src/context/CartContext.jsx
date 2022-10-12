@@ -25,7 +25,6 @@ export class CartProvider extends Component {
     const originalAttributes = product.attributes;
     // save the needed data in an object
     let data = { name, brand, prices, gallery, attributes, quantity, id };
-    console.log(data);
     // update the state with the data
     if(attributes.length === originalAttributes.length){
     await this.setState({ productsInCart: [...this.state.productsInCart, data] }); 
