@@ -88,9 +88,7 @@ export default class CartDetail extends Component {
                                           context.currency && (
                                           <p key="index" className="item_price">
                                             {e.currency.label}{" "}
-                                            {Number(
-                                              item.quantity * e.amount
-                                            ).toFixed(2)}
+                                            {e.amount}       
                                           </p>
                                         )}
                                       </div>
