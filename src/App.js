@@ -1,6 +1,6 @@
 // import libraries
 import React from 'react';
-import {Routes, Route, BrowserRouter} from 'react-router-dom';
+import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom';
 
 // import components
 import TechCategory from "./components/categories/TechCategory";
@@ -33,6 +33,8 @@ class App extends React.Component {
                       <Route path="/clothescategory" element={<ClothesCategory/>}/>
                       <Route path="/pdp" element={<ProductDetail/>}/>
                       <Route path="/cartdetail" element={<CartDetail/>}/>
+                      <Route path="/*"  element={<Navigate to="/" replace/>}/>
+
                     </Routes>                                 
           </ BrowserRouter>
       </CurrencyProvider>
