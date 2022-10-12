@@ -171,6 +171,23 @@
   align-items: center;
   flex-grow: 0;
   height: 336px;
+  position: relative;
+}
+.arrow_btn_container{
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+}
+.arrow_btn{
+  width: 24px;
+  height: 24px;
+  border: none;
+}
+.arrow{
+  width: 24px;
+  height: 24px;
 }
 .img {
   display: flex;

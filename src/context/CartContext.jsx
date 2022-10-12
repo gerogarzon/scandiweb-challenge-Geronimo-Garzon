@@ -29,7 +29,9 @@ export class CartProvider extends Component {
     // update the state with the data
     if(attributes.length === originalAttributes.length){
     await this.setState({ productsInCart: [...this.state.productsInCart, data] }); 
-    } 
+    } else{
+      alert("You must select all attributes")
+    }
     }
 
   async addQuantity (e){

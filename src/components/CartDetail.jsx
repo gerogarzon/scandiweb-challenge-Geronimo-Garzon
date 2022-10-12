@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import CartContext from "../context/CartContext";
 import CurrencyContext from "../context/CurrencyContext";
+import next from "../resources/carousel-add.png";
+import prev from "../resources/carousel-remove.png";
 import "../css/cartdetail.css";
 
 export default class CartDetail extends Component {
@@ -9,19 +11,52 @@ export default class CartDetail extends Component {
     this.state = {
       total: 0.0,
       carousel: "",
+      count:1,
     };
-    this.changeImage = this.changeImage.bind(this);
+    this.changeImage_next = this.changeImage_next.bind(this);
+    this.changeImage_prev = this.changeImage_prev.bind(this);
   }
 
-  changeImage=(id)=>{
-    let productId= id;
-    console.log(productId);
+   changeImage_next = async(id)=>{
+    // read the product id
+    let productId= id; 
+    // find that product
     let context = this.context.productsInCart.find((e)=> e.id === productId)
-    console.log(context)
+    // give me his gallery
     let gallery = context.gallery;
-    let i = 0;
-    let currentImage = gallery[i+1]
-    console.log(currentImage);
+    // initilities the counter
+    let i = this.state.count;
+    // read the gallery in counter position
+    let currentImage = gallery[i]
+    // save that image in carousel state, that state is being read in img source
+    await this.setState({carousel: currentImage})
+    // update counter
+      if(i < gallery.length-1){
+      await this.setState({count: i + 1})
+      } else {
+      await this.setState({count: 0})
+      }   
+  }
+
+  changeImage_prev = async(id)=>{ 
+     // read the product id
+    let productId= id; 
+    // find that product 
+    let context = this.context.productsInCart.find((e)=> e.id === productId)
+    // give me his gallery
+    let gallery = context.gallery;
+      // initilities the counter
+    let i = this.state.count ;
+    // read the gallery in counter position
+    let currentImage = gallery[i]
+    // save that image in carousel state, that state is being read in img source
+    await this.setState({carousel: currentImage})
+     // update counter    
+    if(i > 0){
+      await this.setState({count: i - 1})
+      } else {
+      await this.setState({count: 4})
+      } 
   }
 
   render() {
@@ -108,11 +143,13 @@ export default class CartDetail extends Component {
                               <div className="products_items_col colthird">
                                 <img
                                   className="img"
-                                  src={item.gallery[0]}
+                                  src={item.gallery[this.state.count] || item.gallery[0]}
                                   alt="product"
                                 />
-                                <button
-                                onClick={()=>this.changeImage(item.id)}>aw</button>
+                                <div className="arrow_btn_container">
+                                  <button className="arrow_btn" onClick={()=>this.changeImage_next(item.id)}><img className="arrow" src={next} alt="arrow"/></button>                               
+                                  <button className="arrow_btn" onClick={()=>this.changeImage_prev(item.id)}><img className="arrow" src={prev} alt="arrow"/></button>                              
+                                </div>
                               </div>
                             </div>
                           </div>
