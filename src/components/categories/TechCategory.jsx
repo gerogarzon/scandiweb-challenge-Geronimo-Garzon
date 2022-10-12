@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import cart from "../../resources/cart.png";
 import CurrencyContext from "../../context/CurrencyContext";
 import CartContext from "../../context/CartContext";
-import {query_tech} from "./queries"
+import {query_tech} from "../../queries/queries"
 
 import "../../css/categories.css";
 

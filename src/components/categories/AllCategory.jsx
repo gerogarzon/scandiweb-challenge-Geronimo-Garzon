@@ -4,7 +4,7 @@ import "../../css/categories.css";
 import cart from "../../resources/cart.png";
 import CurrencyContext from "../../context/CurrencyContext";
 import CartContext from "../../context/CartContext";
-import {query_all} from "./queries"
+import {query_all} from "../../queries/queries"
 class AllCategory extends Component {
   constructor(props) {
     super(props);

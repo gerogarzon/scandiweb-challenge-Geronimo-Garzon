@@ -93,9 +93,7 @@ export default class Cart extends Component {
                                             className="cart_content_price"
                                           >
                                             {e.currency.label}{" "}
-                                            {Number(
-                                              item.quantity * e.amount
-                                            ).toFixed(2)}
+                                            {e.amount}
                                           </b>
                                         )}
                                       </div>
