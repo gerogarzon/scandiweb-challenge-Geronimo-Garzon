@@ -19,14 +19,14 @@ export default class Header extends Component {
             <nav className="header">
               <div className="navigation">
                 <div className="header_navigation">
-                  <Link className="header_navigation_elements" to="/">
-                    <label className="header_navigation_elements_label" >ALL</label>
+                  <Link className="header_navigation_elements" to="/clothescategory">
+                    <label className="header_navigation_elements_label">CLOTHES</label>
                   </Link>
                   <Link className="header_navigation_elements" to="/techcategory">
                     <label className="header_navigation_elements_label">TECH</label>
                   </Link>
-                  <Link className="header_navigation_elements" to="/clothescategory">
-                    <label className="header_navigation_elements_label">CLOTHES</label>
+                  <Link className="header_navigation_elements" to="/">
+                    <label className="header_navigation_elements_label" >ALL</label>
                   </Link>
                 </div>
               </div>

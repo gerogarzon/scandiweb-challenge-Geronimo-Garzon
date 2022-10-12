@@ -18,71 +18,56 @@ export class CartProvider extends Component {
     this.changeBackgorundColor = this.changeBackgorundColor.bind(this);
   }
   
-  async addToCart({product, attributes, quantity}) {
+  async addToCart({product, attributes, quantity, id}) {  
+    // destructuring the event trigger data
     const { name, brand, prices, gallery } = product;
-  
-    let data = { name, brand, prices, gallery, attributes, quantity };
-    
-    console.log(attributes)
-    let currentAtribute = attributes.map(elm=>{return elm.value})
-  console.log("current",currentAtribute)
-    let alreadyInCart = this.state.productsInCart.some(element => {return element.attributes.some(attribute => attribute.value === currentAtribute)})
-    console.log("alreadyInCart",alreadyInCart)
-    
-   
-
-    //  if( !alreadyInCart){
-      await this.setState({ productsInCart: [...this.state.productsInCart, data] }); 
-    //  } else {
-    //   alert("Product already in cart")
-    //  }
-    console.log(this.state.productsInCart)
-  }
+    // save the original atributes lenght in order to to prohibit the user from adding a product without choosing its attributes
+    const originalAttributes = product.attributes;
+    // save the needed data in an object
+    let data = { name, brand, prices, gallery, attributes, quantity, id };
+    console.log(data);
+    // update the state with the data
+    if(attributes.length === originalAttributes.length){
+    await this.setState({ productsInCart: [...this.state.productsInCart, data] }); 
+    } 
+    }
 
   async addQuantity (e){
-    const name = e.target.dataset.id;
-    const attribute = e.target.dataset.attribute;
-    console.log("add",this.state.productsInCart)
-   
-    let currentProduct = this.state.productsInCart.find((e)=> { return e.name === name && e.attributes.find((a)=>{return a.value === attribute})});
-   console.log("cu",currentProduct)
+    //  read product id trigger
+    const productId = e
+    //  search by id this especific product inside the products in cart
+    let currentProduct = this.state.productsInCart.find((evt)=> { return evt.id === productId});
+    //  add one more quantity to this product
     let currentQuantity = currentProduct.quantity;
     currentProduct.quantity = currentQuantity + 1;
-    console.log("gg", this.state.productsInCart.map(p=>{return p.attributes.filter((a)=>{return a.value !== attribute}) }))
-    let previusProducts = this.state.productsInCart.filter((e)=>{return e.name !== name && e.attributes.filter((a)=>{return a.value!== attribute})});
-    console.log("cu2",previusProducts)
-    await this.setState({productsInCart: [ currentProduct, ...previusProducts]})
-     console.log(this.state.productsInCart)
+    // return me all others products in cart
+    let previusProducts = this.state.productsInCart.filter((evt)=>{return evt.id !== productId });
+    // save in cart state the updated product with the previus ones 
+    await this.setState({productsInCart: [ ...previusProducts, currentProduct]})   
   }
 
- 
-  
- async removeFromCart(e) { 
-    const name = e.target.dataset.id;
-    let currentProduct = this.state.productsInCart.find((e)=> { return e.name === name });
-    let currentQuantity = currentProduct.quantity;
-    currentProduct.quantity = currentQuantity + 1;
-    let previusProducts = this.state.productsInCart.filter((e)=>{return e.name !== name});
-
-    if(currentQuantity > 1){
-      currentProduct.quantity = currentQuantity - 1;
-      await this.setState({productsInCart: [currentProduct, ...previusProducts]})
-       
+  async removeFromCart(e) { 
+    //  read product id trigger
+    const productId = e
+    //  search by id the especific product inside the products in cart
+    let currentProduct = this.state.productsInCart.find((evt)=> { return evt.id === productId});  
+    // return me all the products in cart excepted the one i am changing 
+    let previusProducts = this.state.productsInCart.filter((evt)=>{return evt.id !== productId  });
+    //  conditional if current quantity is bigger than one subtact one unit, and if it is equal to one delete it
+    if(currentProduct.quantity > 1){
+      currentProduct.quantity -- ;
+      await this.setState({productsInCart: [ ...previusProducts, currentProduct]})
     } else {
-      let deletedProduct = this.state.productsInCart.filter((e)=> { return e.name !== name });
-      
-     await this.setState({ productsInCart: deletedProduct });
-     
+      await this.setState({ productsInCart: previusProducts });  
     }
   }
   
-
   changeBackgorundColor() {
-    let currentColor = this.state.backgroundColor;
-    if (currentColor === 0.2) {
+    let currentOpacity = this.state.backgroundColor;
+    if (currentOpacity === 0.2) {
       this.setState({ backgroundColor: 1 });
     }
-    if (currentColor === 1) {
+    if (currentOpacity === 1) {
       this.setState({ backgroundColor: 0.2 });
     }
   }

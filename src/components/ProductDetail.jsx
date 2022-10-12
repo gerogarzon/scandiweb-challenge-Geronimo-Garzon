@@ -10,46 +10,40 @@ export default class ProductDetail extends Component {
     this.state = {
       product: [],
       mainImage: "",
-      productInCart: [],
       attributes: [],
     };
     this.handleClick = (e) => {
       let data = e.currentTarget.getAttribute("src");
       this.setState({ mainImage: data });
     };
-    this.attributes = async (e)=>{ 
-      let data = e;       
-      let value = this.state.attributes;  
-      console.log(data)
-      if(value.length===0){
-        console.log("in mainif")
-      
-      let alreadyInCart = value.some(element => {return element.id=== data.id })  
-      console.log("already",alreadyInCart)  
-           if (!alreadyInCart){
-            await this.setState({ attributes: [...this.state.attributes, data]});         
-          } 
-            
-          
-          // console.log("satate", this.state.attributes)
-        } else{
-          console.log("in elsemain")
-          let alreadyInCart = value.some(element => {return (element.id=== data.id && element.value === data.value)})  
-      console.log("already2",alreadyInCart)  
-         if (!alreadyInCart){
-            await this.setState({ attributes: [...this.state.attributes, data]});         
-          }
+    this.attributes = async (e) => {
+      let data = e;
+      let state = this.state.attributes;
+      let alreadyInCart = state.some((element) => {
+        return element.id === data.id;
+      });
 
-
+      //  if state is empty save the data
+      if (state.length === 0) {
+        await this.setState({ attributes: [data] });
+      } else {
+        // if not empty, and, not same type of attribute, save the previus attribute and the new one so i can pick up more than one diferent attribute
+        if (!alreadyInCart) {
+          await this.setState({ attributes: [...this.state.attributes, data] });
         }
-    }   
+        // if it the same type of attribute only save the new one
+        else {
+          await this.setState({ attributes: [data] });
+        }
+      }
+    };
   }
 
   async componentDidMount() {
     let query = new URLSearchParams(window.location.search);
     let id = query.get("productID");
 
-   await fetch("http://localhost:4000/", {
+    await fetch("http://localhost:4000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -90,115 +84,149 @@ export default class ProductDetail extends Component {
   }
 
   render() {
+    let query = new URLSearchParams(window.location.search);
+    let id = query.get("productID");
     return (
       <CartContext.Consumer>
         {({ addToCart, backgroundColor }) => (
           <>
-          <CurrencyContext.Consumer>
-            {(context) => (
-              <>
-                {this.state.product.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{ opacity: backgroundColor }}
-                      className="container"
-                    >
-                      <div className="sideGallery">
-                        {item.gallery.map((item, index) => {
-                          return (
-                            <img
-                              key={index}
-                              src={item}
-                              alt="gallery"
-                              className="sideGallery_items"
-                              onClick={this.handleClick}
-                            />
-                          );
-                        })}
-                      </div>
-                      <div className="mainContent">
-                        <img
-                          src={this.state.mainImage || item.gallery[0]}
-                          alt="gallery"
-                          className="mainImage"
-                        />
-                        <div className="productCharacteristics">
-                          <h1 className="productBrand"> {item.brand} </h1>
-                          <h2 className="productName">{item.name}</h2>
-                          {item.attributes.map((itm, index) => {
+            <CurrencyContext.Consumer>
+              {(context) => (
+                <>
+                  {this.state.product.map((item, inde) => {
+                    return (
+                      <div
+                        key={inde}
+                        style={{ opacity: backgroundColor }}
+                        className="container"
+                      >
+                        <div className="sideGallery">
+                          {item.gallery.map((item, index) => {
                             return (
-                              <div key={index}>
-                                <div className="attributes">                                 
-                                  <h5 className="attributes_title">
-                                    {itm.name}:
-                                  </h5>
-                                  {itm.type === "swatch" ? (
-                                    <>
-                                      {itm.items.map((item) => {
-                                        return (                                         
-                                          <button
-                                                                                     
-                                            key={item.id}
-                                            onClick={()=>this.attributes({id: itm.id, value:item.value}) }  
-                                            className="attributes_buttons typeColor"
-                                            style={{
-                                              backgroundColor: item.value,
-                                            }}
-                                          ></button>                                         
-                                        );
-                                      })}
-                                    </>
-                                  ) : (
-                                    <>
-                                      {itm.items.map((item) => {
-                                        return ( 
-                                          <button                                                                                  
-                                          key={item.id}
-                                          onClick={()=>this.attributes({id: itm.id, value:item.value}) }  
-                                          className="attributes_buttons"                                    
-                                        >{item.value}</button>                             
-                                        );
-                                      })}
-                                    </>
-                                  )}                                
-                                </div>
-                              </div>
+                              <img
+                                key={index}
+                                src={item}
+                                alt="gallery"
+                                className="sideGallery_items"
+                                onClick={this.handleClick}
+                              />
                             );
                           })}
-                          <h5 className="price">PRICE:</h5>
-                          <div className="price_amount">
-                            {item.prices.map((item, index) => {
+                        </div>
+                        <div className="mainContent">
+                          <img
+                            src={this.state.mainImage || item.gallery[0]}
+                            alt="gallery"
+                            className="mainImage"
+                          />
+                          <div className="productCharacteristics">
+                            <h1 className="productBrand"> {item.brand} </h1>
+                            <h2 className="productName">{item.name}</h2>
+                            {item.attributes.map((itm, index) => {
                               return (
                                 <div key={index}>
-                                  {item.currency.label === context.currency && (
-                                    <p
-                                      key="index"
-                                      className="cart_content_price"
-                                    >
-                                      {item.currency.label} {item.amount}
-                                    </p>
-                                  )}
+                                  <div className="attributes">
+                                    <h5 className="attributes_title">
+                                      {itm.name}:
+                                    </h5>
+                                    {itm.type === "swatch" ? (
+                                      <>
+                                        {itm.items.map((item) => {
+                                          return (
+                                            <input
+                                              key={item.id}
+                                              type="button"
+                                              required
+                                              onClick={() =>
+                                                this.attributes({
+                                                  id: itm.id,
+                                                  value: item.value,
+                                                })
+                                              }
+                                              className="attributes_buttons typeColor"
+                                              style={{
+                                                backgroundColor: item.value,
+                                              }}
+                                            />
+                                          );
+                                        })}
+                                      </>
+                                    ) : (
+                                      <>
+                                        {itm.items.map((item) => {
+                                          return (
+                                            <input
+                                              key={item.id}
+                                              type="button"
+                                              required
+                                              defaultValue={item.value}
+                                              onClick={() =>
+                                                this.attributes({
+                                                  id: itm.id,
+                                                  value: item.value,
+                                                })
+                                              }
+                                              className="attributes_buttons"
+                                            />
+                                          );
+                                        })}
+                                      </>
+                                    )}
+                                  </div>
                                 </div>
                               );
                             })}
+                            <h5 className="price">PRICE:</h5>
+                            <div className="price_amount">
+                              {item.prices.map((item, index) => {
+                                return (
+                                  <div key={index}>
+                                    {item.currency.label ===
+                                      context.currency && (
+                                      <p
+                                        key="index"
+                                        className="cart_content_price"
+                                      >
+                                        {item.currency.label} {item.amount}
+                                      </p>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            <button
+                              type="submit"
+                              data-cart={item}
+                              onClick={() =>
+                                addToCart({
+                                  product: item,
+                                  attributes: this.state.attributes,
+                                  quantity: 1,
+                                  id:
+                                    id +
+                                    this.state.attributes.map((e) => {
+                                      return e.id + e.value;
+                                    }),
+                                })
+                              }
+                              className="addtocart_button"
+                            >
+                              ADD TO CART
+                            </button>
+                            <p
+                              className="description"
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                            ></p>
                           </div>
-                          <button
-                            data-cart={item}
-                            onClick={() => addToCart({product:item, attributes: this.state.attributes, quantity: 1})}
-                            className="addtocart_button"
-                          >
-                            ADD TO CART
-                          </button>
-                          <p className="description">{item.description}</p>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </>
-            )}
-          </CurrencyContext.Consumer>
+                    );
+                  })}
+                </>
+              )}
+            </CurrencyContext.Consumer>
           </>
         )}
       </CartContext.Consumer>

@@ -10,31 +10,43 @@ export default class Cart extends Component {
     super(props);
     this.state = {
       cartOpen: false,
-      total:0.00,
+      total: 0.0,
     };
     this.handleClick = this.handleClick.bind(this);
     this.setTotal = this.setTotal.bind(this);
   }
 
-  async setTotal(e){
-    console.log(e)
-    console.log("hola")
-  // await  this.setState({total: e});
-  // console.log(this.state.total)
+  async setTotal(e) {
+    console.log(e.amount);
+    console.log("hola");
+    // await  this.setState({total: e});
+    // console.log(this.state.total)
   }
   handleClick() {
     let actualState = this.state.cartOpen;
     this.setState({ cartOpen: !actualState });
   }
 
+  // componentDidUpdate() {
+  //   let total = document.getElementsByClassName('cart_content_price')
+  //   console.log('total', total.forEach(element => {return element.innerText
+      
+  //   }));
+  // }
+
   render() {
-    
+   
     return (
       <CurrencyContext.Consumer>
         {(context) => (
           <>
             <CartContext.Consumer>
-              {({ productsInCart, changeBackgorundColor, addQuantity, removeFromCart }) => (
+              {({
+                productsInCart,
+                changeBackgorundColor,
+                addQuantity,
+                removeFromCart,
+              }) => (
                 <>
                   <div className="cart_container">
                     <div
@@ -82,7 +94,6 @@ export default class Cart extends Component {
                         </div>
                         {productsInCart.map((item, index) => {
                           return (
-                            
                             <div key={index} className="cart_items_products">
                               <div className="cart_items_products_col col1">
                                 <div>{item.brand}</div>
@@ -94,43 +105,21 @@ export default class Cart extends Component {
                                         {e.currency.label ===
                                           context.currency && (
                                           <b
-                                            onChange={()=>this.setTotal(Number(item.quantity*e.amount).toFixed(2))}
                                             key="index"
                                             className="cart_content_price"
-                                            
                                           >
-                                            {e.currency.label} {Number(item.quantity*e.amount).toFixed(2)}
+                                            {e.currency.label}{" "}
+                                            {Number(
+                                              item.quantity * e.amount
+                                            ).toFixed(2)}
                                           </b>
                                         )}
                                       </div>
                                     );
                                   })}
                                 </div>
+
                                 <div>
-
-                                {/* <div>{item.attributes.id}:</div>
-                                        {item.attributes.id === "Color" ? (
-                                          <div
-                                            style={{
-                                              backgroundColor: item.attributes.value,
-                                            }}
-                                            className="colorType"
-                                          ></div>
-                                        ) : (
-                                          <div className="attribute_value">
-                                            {item.attributes.value}
-                                          </div>
-                                        )}    */}
-
-                                {/* {item.attributes.length !== 0 && <div className="attribute_value">
-                                            {item.attributes[item.attributes.length - 1].value}
-                                          </div>} */}
-
-
-                                {/* <div className="attribute_value">
-                                            {item.attribute[0].value}
-                                          </div> */}
-
                                   {item.attributes.map((attribute, index) => {
                                     return (
                                       <div key={index}>
@@ -150,77 +139,26 @@ export default class Cart extends Component {
                                       </div>
                                     );
                                   })}
-
-
-
-                                  {/* <div key={index}>
-                                        <div>{item.attribute[Array.length-1]}:</div>
-                                        {item.attribute[Array.length-1].id === "Color" ? (
-                                          <div
-                                            style={{
-                                              backgroundColor: item.attribute[Array.length-1].value,
-                                            }}
-                                            className="colorType"
-                                          ></div>
-                                        ) : (
-                                          <div className="attribute_value">
-                                            {item.attribute[Array.length-1].value}
-                                          </div>
-                                        )}
-                                      </div> */}
-
-                                  
-
                                 </div>
                               </div>
 
-                              {/* {item.attributes.map((a,idx)=>{return(
-                              <div key={idx} className="cart_items_products_col col2">                                   
-                                  <button
-                                    data-attribute={a.value} 
-                                    data-id={item.name}
-                                    onClick={addQuantity}                               
-                                    className="button_add"
-                                    >
-                                      +
-                                    </button>                              
-                                  <div className="product_quantity">
-                                    {item.quantity}
-                                  </div>
-                                  <button
-                                    data-id={item.name}
-                                    onClick={removeFromCart}
-                                    className="button_subtract"
-                                  >
-                                    -
-                                  </button>
-                              </div>
-                              )})} */}
-
-                                <div className="cart_items_products_col col2">                                   
-                                  <button
-                                    // data-attribute={a.value} 
-                                    data-id={item.name}
-                                    onClick={addQuantity}                               
-                                    className="button_add"
-                                    >
-                                      +
-                                    </button>                              
-                                  <div className="product_quantity">
-                                    {item.quantity}
-                                  </div>
-                                  <button
-                                    data-id={item.name}
-                                    onClick={removeFromCart}
-                                    className="button_subtract"
-                                  >
-                                    -
-                                  </button>
+                              <div className="cart_items_products_col col2">
+                                <button
+                                  onClick={()=>addQuantity(item.id)}
+                                  className="button_add"
+                                >
+                                  +
+                                </button>
+                                <div className="product_quantity">
+                                  {item.quantity}
                                 </div>
-
-
-
-
+                                <button                                  
+                                  onClick={()=>removeFromCart(item.id)}
+                                  className="button_subtract"
+                                >
+                                  -
+                                </button>
+                              </div>
 
                               <div className="cart_items_products_col col3">
                                 <img
@@ -230,20 +168,24 @@ export default class Cart extends Component {
                                 />
                               </div>
                             </div>
-
-                          
-                                  
                           );
                         })}
-                        
 
-                        <div  className="total">
+                        <div className="total">
                           <b className="total_title">Total</b>
                           <b className="total_amount">
-                              {productsInCart.quantity}
-                          </b>
-                        </div>
                            
+                          {context.currency}{" "}{Number(productsInCart.reduce((acc, product)=>{
+                              if(product.prices.map(e=>{return e.currency.label ===context.currency})) {
+                                 let price = product.prices.find(evt=>{return evt.currency.label ===context.currency});
+                                return acc + price.amount * product.quantity;
+                              }
+                              }, 0)).toFixed(2)}
+            
+                            
+                          </b>                     
+                        </div>
+
                         <div className="checkout_buttons">
                           <Link
                             to="/cartdetail"
