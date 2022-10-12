@@ -15,7 +15,6 @@ class AllCategory extends Component {
   }
 
   componentDidMount() {
-    console.log(query_all)
     fetch("http://localhost:4000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
