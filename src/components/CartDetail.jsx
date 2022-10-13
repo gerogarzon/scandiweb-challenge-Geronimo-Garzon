@@ -11,64 +11,72 @@ export default class CartDetail extends Component {
     this.state = {
       total: 0.0,
       carousel: "",
-      count:1,
+      count: 1,
     };
     this.changeImage_next = this.changeImage_next.bind(this);
     this.changeImage_prev = this.changeImage_prev.bind(this);
   }
 
-   changeImage_next = async(id)=>{
+  changeImage_next = async (id) => {
     // read the product id
-    let productId= id; 
+    let productId = id;
     // find that product
-    let context = this.context.productsInCart.find((e)=> e.id === productId)
+    let context = this.context.productsInCart.find((e) => e.id === productId);
     // give me its gallery
     let gallery = context.gallery;
     // initilities the counter
     let i = this.state.count;
     // read the gallery in counter position
-    let currentImage = gallery[i]
+    let currentImage = gallery[i];
     // save that image in carousel state, that state is being read in img source
-    await this.setState({carousel: currentImage})
+    await this.setState({ carousel: currentImage });
     // update counter
-      if(i < gallery.length-1){
-      await this.setState({count: i + 1})
-      } else {
-      await this.setState({count: 0})
-      }   
-  }
+    if (i < gallery.length - 1) {
+      await this.setState({ count: i + 1 });
+    } else {
+      await this.setState({ count: 0 });
+    }
+  };
 
-  changeImage_prev = async(id)=>{ 
-     // read the product id
-    let productId= id; 
-    // find that product 
-    let context = this.context.productsInCart.find((e)=> e.id === productId)
+  changeImage_prev = async (id) => {
+    // read the product id
+    let productId = id;
+    // find that product
+    let context = this.context.productsInCart.find((e) => e.id === productId);
     // give me his gallery
     let gallery = context.gallery;
-      // initilities the counter
-    let i = this.state.count ;
+    // initilities the counter
+    let i = this.state.count;
     // read the gallery in counter position
-    let currentImage = gallery[i]
+    let currentImage = gallery[i];
     // save that image in carousel state, that state is being read in img source
-    await this.setState({carousel: currentImage})
-     // update counter    
-    if(i > 0){
-      await this.setState({count: i - 1})
-      } else {
-      await this.setState({count: 4})
-      } 
-  }
+    await this.setState({ carousel: currentImage });
+    // update counter
+    if (i > 0) {
+      await this.setState({ count: i - 1 });
+    } else {
+      await this.setState({ count: 4 });
+    }
+  };
 
   render() {
     return (
       <>
         <CartContext.Consumer>
-          {({ productsInCart, addQuantity, removeFromCart, backgroundColor }) => (
+          {({
+            productsInCart,
+            addQuantity,
+            removeFromCart,
+            backgroundColor,
+          }) => (
             <>
               <CurrencyContext.Consumer>
                 {(context) => (
                   <>
-                    <div style={{opacity:backgroundColor}} className="cartdetail_container">
+                    <div
+                      style={{ opacity: backgroundColor }}
+                      className="cartdetail_container"
+                    >
                       <div className="title">CART</div>
                       {productsInCart.length === 0 && (
                         <em className="empty_cart">No products added</em>
@@ -87,8 +95,7 @@ export default class CartDetail extends Component {
                                         {e.currency.label ===
                                           context.currency && (
                                           <p key="index" className="item_price">
-                                            {e.currency.label}{" "}
-                                            {e.amount}       
+                                            {e.currency.label} {e.amount}
                                           </p>
                                         )}
                                       </div>
@@ -139,12 +146,37 @@ export default class CartDetail extends Component {
                               <div className="products_items_col colthird">
                                 <img
                                   className="img"
-                                  src={item.gallery[this.state.count] || item.gallery[0]}
+                                  src={
+                                    item.gallery[this.state.count] ||
+                                    item.gallery[0]
+                                  }
                                   alt="product"
                                 />
                                 <div className="arrow_btn_container">
-                                  <button className="arrow_btn" onClick={()=>this.changeImage_next(item.id)}><img className="arrow" src={next} alt="arrow"/></button>                               
-                                  <button className="arrow_btn" onClick={()=>this.changeImage_prev(item.id)}><img className="arrow" src={prev} alt="arrow"/></button>                              
+                                  <button
+                                    className="arrow_btn"
+                                    onClick={() =>
+                                      this.changeImage_next(item.id)
+                                    }
+                                  >
+                                    <img
+                                      className="arrow"
+                                      src={next}
+                                      alt="arrow"
+                                    />
+                                  </button>
+                                  <button
+                                    className="arrow_btn"
+                                    onClick={() =>
+                                      this.changeImage_prev(item.id)
+                                    }
+                                  >
+                                    <img
+                                      className="arrow"
+                                      src={prev}
+                                      alt="arrow"
+                                    />
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -156,29 +188,37 @@ export default class CartDetail extends Component {
                           <p>Tax 21%:</p>
                           <b className="amount_total">
                             {context.currency}{" "}
-                            {Number(Number(
-                              productsInCart.reduce((acc, product) => {
-                                if (
-                                  product.prices.map((e) => {
+                            {Number(
+                              Number(
+                                productsInCart.reduce((acc, product) => {
+                                  if (
+                                    product.prices.map((e) => {
+                                      return (
+                                        e.currency.label === context.currency
+                                      );
+                                    })
+                                  ) {
+                                    let price = product.prices.find((evt) => {
+                                      return (
+                                        evt.currency.label === context.currency
+                                      );
+                                    });
                                     return (
-                                      e.currency.label === context.currency
+                                      acc + price.amount * product.quantity
                                     );
-                                  })
-                                ) {
-                                  let price = product.prices.find((evt) => {
-                                    return (
-                                      evt.currency.label === context.currency
-                                    );
-                                  });
-                                  return acc + price.amount * product.quantity;
-                                }
-                              }, 0)
-                            ).toFixed(2) * 0.21).toFixed(2)}{" "}
+                                  }
+                                }, 0)
+                              ).toFixed(2) * 0.21
+                            ).toFixed(2)}{" "}
                           </b>
                         </div>
                         <div className="total_items">
                           <p>Quantity:</p>
-                          <b className="amount_total">{productsInCart.reduce((acc, product)=>{ return acc + product.quantity}, 0)}</b>
+                          <b className="amount_total">
+                            {productsInCart.reduce((acc, product) => {
+                              return acc + product.quantity;
+                            }, 0)}
+                          </b>
                         </div>
                         <div className="total_items">
                           <p>Total:</p>
