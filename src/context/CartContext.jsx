@@ -22,62 +22,73 @@ export class CartProvider extends Component {
     const { name, brand, prices, gallery } = product;
     // save the original atributes lenght in order to to prohibit the user from adding a product without choosing its attributes
     const originalAttributes = product.attributes;
+    console.log(originalAttributes)
     // save the needed data in an object
-    let data = { name, brand, prices, gallery, attributes, quantity, id };
+    let data = { name, brand, prices, gallery, attributes, originalAttributes, quantity, id };
     // restrict the user to forget an attribute
     if (attributes.length === originalAttributes.length) {
       // restrict to add the same product to the cart and alert the user
-          let alreadyIn = this.state.productsInCart.find((p) => p.id === id);
-          if (alreadyIn === undefined) {
-            // if all filter pass add the product to the cart
-            await this.setState({productsInCart: [...this.state.productsInCart, data]});
-            alert("Product added successfully");
-          } else {
-            alert(
-              "Product already in cart! If you want to modified the quantity you can do it in the cart"
-            );
-          }
+      let alreadyIn = this.state.productsInCart.find((p) => p.id === id);
+      if (alreadyIn === undefined) {
+        // if all filter pass add the product to the cart
+        await this.setState({
+          productsInCart: [...this.state.productsInCart, data],
+        });
+      } else {
+        alert(
+          "Product already in cart! If you want to modified the quantity you can do it in the cart"
+        );
+      }
     } else {
       alert("You must select all attributes");
     }
   }
 
   async addQuantity(e) {
-    //  read product id trigger
+    //  read trigger product id
     const productId = e;
     //  search by id this especific product inside the products in cart
     let currentProduct = this.state.productsInCart.find((evt) => {
       return evt.id === productId;
     });
+    // get me the product position in the array of products in cart
+    let currentProductIndex = this.state.productsInCart.findIndex((evt) => {
+      return evt.id === productId;
+    });
     //  add one more quantity to this product
     let currentQuantity = currentProduct.quantity;
     currentProduct.quantity = currentQuantity + 1;
-    // return me all others products in cart
-    let previusProducts = this.state.productsInCart.filter((evt) => {
-      return evt.id !== productId;
-    });
-    // save in cart state the updated product with the previus ones
+    // update the state with the new quantity
+    this.state.productsInCart.splice(currentProductIndex, 1, currentProduct);
+    // save changes
     await this.setState({
-      productsInCart: [currentProduct,...previusProducts],
+      productsInCart: this.state.productsInCart,
     });
   }
 
   async removeFromCart(e) {
-    //  read product id trigger
+    //  read trigger product id
     const productId = e;
-    //  search by id the especific product inside the products in cart
+    //  search by id the especific product inside the state products in cart
     let currentProduct = this.state.productsInCart.find((evt) => {
+      return evt.id === productId;
+    });
+    // get me the product position in the array of products in cart
+    let currentProductIndex = this.state.productsInCart.findIndex((evt) => {
       return evt.id === productId;
     });
     // return me all the products in cart excepted the one i am changing
     let previusProducts = this.state.productsInCart.filter((evt) => {
       return evt.id !== productId;
     });
-    //  conditional if current quantity is bigger than one subtact one unit, and if it is equal to one delete it
+    //  conditional if current quantity is bigger than one subtract one unit, and if it is equal to one delete it
     if (currentProduct.quantity > 1) {
       currentProduct.quantity--;
+      // update the state with the new quantity
+      this.state.productsInCart.splice(currentProductIndex, 1, currentProduct);
+      // save changes
       await this.setState({
-        productsInCart: [currentProduct,...previusProducts],
+        productsInCart: this.state.productsInCart,
       });
     } else {
       await this.setState({ productsInCart: previusProducts });
