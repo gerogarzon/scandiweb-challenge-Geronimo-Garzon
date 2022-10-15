@@ -21,8 +21,7 @@ export class CartProvider extends Component {
     // destructuring the event trigger data
     const { name, brand, prices, gallery } = product;
     // save the original atributes lenght in order to to prohibit the user from adding a product without choosing its attributes
-    const originalAttributes = product.attributes;
-    console.log(originalAttributes)
+    const originalAttributes = product.attributes
     // save the needed data in an object
     let data = { name, brand, prices, gallery, attributes, originalAttributes, quantity, id };
     // restrict the user to forget an attribute
