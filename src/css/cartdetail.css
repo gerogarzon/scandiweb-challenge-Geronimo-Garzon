@@ -119,6 +119,7 @@
   width: 63px;
   height: 45px;
   margin-bottom: 16px;
+  border: 1px solid #1d1f22;
 }
 .attribute_typeValue {
   display: flex;
