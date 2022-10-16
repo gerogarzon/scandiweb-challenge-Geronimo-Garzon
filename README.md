@@ -1,2 +1,2 @@
-# scandiwebChallenge
+# scandiweb-challenge
 Challenge for Scandiweb company.
