@@ -1,4 +1,4 @@
-# scandiweb-challenge
+# Scandiweb-challenge
 Challenge for Scandiweb company.
 
 # Getting Started with Create React App
